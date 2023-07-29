@@ -60,7 +60,6 @@ init_turtle()
 
 random.shuffle(COLORS)
 colors = COLORS[:racers]
-create_turtle(colors)
 winner = race(colors)
 print("The winner is the", winner, "turtle!")
 time.sleep(5)
