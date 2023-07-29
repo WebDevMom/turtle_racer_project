@@ -3,7 +3,7 @@ import random
 import time
 
 WIDTH, HEIGHT = 500, 500
-COLORS = ['red', 'green', 'blue', 'orange', 'yellow', 'black', 'purple', 'pink', 'brown', 'cyan']
+COLORS = ['RED', 'GREEN', 'BLUE', 'ORANGE', 'YELLOW', 'BLACK', 'PURPLE', 'PINK', 'BROWN', 'CYAN']
 
 def num_racers():
     racers = 0
@@ -23,6 +23,18 @@ def ontop(wn):
     rootwindow = wn.getcanvas().winfo_toplevel()
     rootwindow.call('wm', 'attributes', '.', '-topmost', '1')
 
+def race(colors):
+    turtles = create_turtle(colors)
+
+    while True:
+        for racer in turtles:
+            distance = random.randrange(1, 20)
+            racer.forward(distance)
+
+            x, y = racer.pos()
+            if y >= HEIGHT // 2 - 10:
+                return colors[turtles.index(racer)]
+
 def create_turtle(colors):
     turtles = []
     spacingx = WIDTH // (len(colors) + 1)
@@ -35,7 +47,7 @@ def create_turtle(colors):
         racer.setpos(-WIDTH//2 + (i + 1) * spacingx, -HEIGHT//2 + 20)
         racer.pendown()
         turtles.append(racer)
-
+    return turtles
 
 def init_turtle():
     screen = turtle.Screen()
@@ -49,3 +61,6 @@ init_turtle()
 random.shuffle(COLORS)
 colors = COLORS[:racers]
 create_turtle(colors)
+winner = race(colors)
+print("The winner is the", winner, "turtle!")
+time.sleep(5)
